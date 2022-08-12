@@ -1,7 +1,7 @@
 name = "HyperActiveLearning"
 uuid = "bbe0bd0f-45a1-453e-8b96-d2608abdd39e"
-authors = ["Christoph Ortner <c.ortner@warwick.ac.uk> and contributors"]
-version = "0.1.0"
+authors = ["Christoph Ortner <christophortner0@gmail.com> and contributors (please add your names)"]
+version = "0.0.0"
 
 [compat]
 julia = "1.7"

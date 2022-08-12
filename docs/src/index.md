@@ -4,7 +4,7 @@ CurrentModule = HyperActiveLearning
 
 # HyperActiveLearning
 
-Documentation for [HyperActiveLearning](https://github.com/cortner/HyperActiveLearning.jl).
+Documentation for [HyperActiveLearning](https://github.com/ACEsuit/HyperActiveLearning.jl).
 
 ```@index
 ```

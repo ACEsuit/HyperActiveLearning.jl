@@ -5,12 +5,12 @@ DocMeta.setdocmeta!(HyperActiveLearning, :DocTestSetup, :(using HyperActiveLearn
 
 makedocs(;
     modules=[HyperActiveLearning],
-    authors="Christoph Ortner <c.ortner@warwick.ac.uk> and contributors",
-    repo="https://github.com/cortner/HyperActiveLearning.jl/blob/{commit}{path}#{line}",
+    authors="Christoph Ortner <christophortner0@gmail.com> and contributors (pleae add your names)",
+    repo="https://github.com/ACEsuit/HyperActiveLearning.jl/blob/{commit}{path}#{line}",
     sitename="HyperActiveLearning.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://cortner.github.io/HyperActiveLearning.jl",
+        canonical="https://ACEsuit.github.io/HyperActiveLearning.jl",
         edit_link="main",
         assets=String[],
     ),
@@ -20,6 +20,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/cortner/HyperActiveLearning.jl",
+    repo="github.com/ACEsuit/HyperActiveLearning.jl",
     devbranch="main",
 )
