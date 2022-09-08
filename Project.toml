@@ -3,6 +3,11 @@ uuid = "bbe0bd0f-45a1-453e-8b96-d2608abdd39e"
 authors = ["Christoph Ortner <christophortner0@gmail.com> and contributors (please add your names)"]
 version = "0.0.0"
 
+[deps]
+ACE1 = "e3f9bc04-086e-409a-ba78-e9769fe067bb"
+JuLIP = "945c410c-986d-556a-acb1-167a618e0462"
+StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
+
 [compat]
 julia = "1.7"
 
