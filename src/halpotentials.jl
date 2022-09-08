@@ -31,6 +31,6 @@ end
 struct type σEnergy <: UncertaintyMeasure end
 
 function uncertainty(::σEnergy, V::PIPotential, at::AbstractAtoms)
-    return  co_energy(V, at)
+    return  sum(co_energy(V, at))
 end
 
