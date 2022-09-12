@@ -1,9 +1,6 @@
 
 
-
-abstract type AbstractHALPotential end
-
-struct HALComitteePotential <: AbstractHALPotential
+struct HALComitteePotential{T} <: AbstractHALPotential
     V::PIPotential
     uc::UncertaintyMeasure
     weights::SVector{T,2}
@@ -13,7 +10,20 @@ struct HALComitteePotential <: AbstractHALPotential
     end
 end
 
-HALComitteePotential(V, uc, τ::T) where {T<:Real} = HALComitteePotential(V, uc,  SVector{2,T}([1.0,τ]))
+HALComitteePotential(V, uc; ω = 1.0, τ=1.0) where {T<:Real} = HALComitteePotential(V, uc,  SVector{2,T}([ω,τ]))
+
+"""
+    set_τ!(hv::HALComitteePotential, τ::T) where {T<:Real}
+
+TBW
+"""
+function set_τ!(hv::HALComitteePotential, τ::T) where {T<:Real}
+    hv.weights = SVector{2,T}([hv.weights[1],τ])
+end
+
+function set_ω!(hv::HALComitteePotential, τ::T) where {T<:Real}
+    hv.weights = SVector{2,T}([ω,hv.weights[2]])
+end
 
 function energy(hv::HALComitteePotential, at::AbstractAtoms)
     E = energy(hv.V, at)
@@ -21,16 +31,13 @@ function energy(hv::HALComitteePotential, at::AbstractAtoms)
     return hv.weights[1] * E - hv.weights[2] * uc
 end
 
-function force(halV::HALComitteePotential, at::AbstractAtoms)
-    F = force(V, at)
-    uc_force = - grad_uncertainty(uc, V, at)
-    return hv.weights[1] * F - hv.weights[2] * uc_force
+function forces(hv::HALComitteePotential, at::AbstractAtoms)
+    F = forces(hv.V, at)
+    uc_grad = grad_uncertainty(hv.uc, hv.V, at)
+    return hv.weights[1] * F + hv.weights[2] * uc_grad
 end
 
 
-struct type σEnergy <: UncertaintyMeasure end
 
-function uncertainty(::σEnergy, V::PIPotential, at::AbstractAtoms)
-    return  sum(co_energy(V, at))
-end
+
 
