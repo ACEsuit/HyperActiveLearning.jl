@@ -40,6 +40,8 @@ include("./haltermination.jl")
 abstract type Initializer end
 include("./halinitializers.jl")
 
+abstract type HighFidelityModel end
+include("./highflidelity.jl")
 
 struct HALSampler
     sampler::AbstractSampler
@@ -65,15 +67,18 @@ struct HALAlgorithm
     halschedule::AbstractHALScheduler
 end
 
-function step!(hal::HALAlgorithm, halstate::AbstractHALState)
+function step!(hal::HALAlgorithm, halstate::AbstractHALState, hfm::HighFidelityModel)
     # fit model according to the current HAL state
     fit!(hal.modelfit, halstate)
     # update the HAL potential accordingly 
     set_V!(hal.halpot, get_V(ha.modelfit))
     # sample from HAL sampler
     sample!(hal.halsampler, hal.halpot, hal.outpc)
+    # 
+    at = newconfig(hal.outpc)
+    new_data = evaluate(hfm, at)
     # append 
-    return newstate(halstate, hal.outpc)
+    return newstate(halstate, new_data, hal.outpc)
 end
 
 function run!(hal::HALAlgorithm, halstate::AbstractHALState; maxit = 10) #modelfit::ModelFit, hs::HALSampler, init::Initializer, halstate, hsoutp::OutputCollector, haoutp::OutputCollector)
