@@ -1,4 +1,4 @@
-
+using JuLip 
 
 abstract type HighFidelityModel end
 

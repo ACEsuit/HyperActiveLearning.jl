@@ -1,15 +1,16 @@
 
 
+function update_V!(hv::AbstractHALPotential, V::PIPotential)
+    hv.V = V
+end
+
 struct HALComitteePotential{T} <: AbstractHALPotential
     V::PIPotential
     uc::UncertaintyMeasure
     weights::SVector{T,2}
-    function HALComitteePotential(V, uc, weights)
-        assert_has_co(V) 
-        return new(V,uc,weights)
-    end
+    HALComitteePotential{T}(V, uc, weights) where {T<:Real} =  (assert_has_co(V); new(V,uc,weights))
 end
-
+HALComitteePotential(V, uc, weights::SVector{T}) where {T<:Real}= HALComitteePotential{T}(V, uc, weights)
 HALComitteePotential(V, uc; ω = 1.0, τ=1.0) where {T<:Real} = HALComitteePotential(V, uc,  SVector{2,T}([ω,τ]))
 
 """

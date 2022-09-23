@@ -1,7 +1,7 @@
 
 
 
-struct type σEnergy <: UncertaintyMeasure end
+struct σEnergy <: UncertaintyMeasure end
 
 function uncertainty(::σEnergy, V::PIPotential, at::AbstractAtoms)
     return sqrt(mean((co_energy(V, at) - energy(V, at)).^2 ))

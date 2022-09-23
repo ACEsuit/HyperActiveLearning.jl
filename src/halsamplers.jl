@@ -14,8 +14,8 @@ function sample!(sampler::AbstractSampler, an::AnnealingScheme, tc::TerminationC
 end
 
 
-function sample(hal::SimpleHALalgorithm, data, V)
-    at0 = get_config(hal.init, data) 
-    state = init
+function sample(hal::SimpleHALalgorithm, halstate)
+    at0 = sample_config(hal.init, halstate) 
+    state = init(hal.sampler, at0)
     sample!(hal.sampler, hal.an, hal.tc, state, V; outp)
 end
